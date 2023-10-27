@@ -76,7 +76,7 @@ exports.getAllContacts = async (req, res, next) => {
   console.log("fetching all contacts")
   try {
     const contacts = await ContactModel.find();
-    res.json({ message: "Contacts fetched successfully", contacts });
+    return res.json({ message: "Contacts fetched successfully", contacts });
   } catch (err) {
     console.log(JSON.stringify(err, undefined, 2));
     return res.json({
