@@ -92,12 +92,13 @@ function App() {
       <div id="sidebar">
         <div className="title">
           <h1>Contacts</h1>
-          <button onClick={exportCsv}>Export to CSV</button>
+          
           <a href={url} download={'test-csv.csv'} ref={csvRef}/>
           <Link to="/contacts/add" id="add-contact-btn">
             Add New Contact
           </Link>
         </div>
+        <button id="csv-btn" onClick={exportCsv}>Export to CSV</button>
         <div className="form-container">
           <form id="search-form" role="search">
             <input

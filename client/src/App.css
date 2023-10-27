@@ -5,6 +5,7 @@
   box-sizing: border-box;
   overflow: hidden;
 }
+
 a.active{
   background-color: black;
   color: white;
@@ -19,6 +20,20 @@ a.active{
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+#csv-btn{
+  background-color: transparent;
+  transition: all 0.3s ease;
+  border: 1px solid black;
+  height: 40px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  border-radius: 5px;
 }
 #add-contact-btn{
   background-color: transparent;
