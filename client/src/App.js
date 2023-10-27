@@ -39,7 +39,7 @@ function App() {
     const url = URL.createObjectURL(blob)
     setUrl(url)
     csvRef?.current.click()
-
+    setUrl("")
     URL.revokeObjectURL(url)
   }
 
@@ -93,7 +93,7 @@ function App() {
         <div className="title">
           <h1>Contacts</h1>
           
-          <a href={url} download={'test-csv.csv'} ref={csvRef}/>
+          {url !== "" && <a href={url} download={'test-csv.csv'} ref={csvRef}/>}
           <Link to="/contacts/add" id="add-contact-btn">
             Add New Contact
           </Link>
