@@ -84,10 +84,19 @@ const AddContact = () => {
     console.log(newContact)
     axios.post("http://localhost:3005/api/contacts/create", newContact).then((response) => {
       console.log(response)
-      setIsLoading(false)
-      resetForm()
-      navigator(0)
-      navigator("/")
+      if(response.data.error){
+        setIsLoading(false)
+        console.log(error)
+        setError("Number already exists")
+        setTimeout(() => setError(""),3000)
+        resetForm()
+        return
+      }else{
+        setIsLoading(false)
+        resetForm()
+        navigator(0)
+        navigator("/")
+      }
     }).catch(error => {
       console.log(error)
       setIsLoading(false)

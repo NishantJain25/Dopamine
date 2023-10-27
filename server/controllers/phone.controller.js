@@ -89,6 +89,10 @@ exports.deletePhoneById = async (req, res, next) => {
 
 exports.updatePhones = async (req, res, next) => {
   const {phones} = req.body
+  var existingNumber = await this.checkExistingNumbers(phones)
+  if (existingNumber) {
+    return res.json({ error: "Phone number already exists" });
+  }
   var updatedPhones = []
   try{
     const phonePromises = phones.map(async (numberInfo) => {

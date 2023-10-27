@@ -76,39 +76,52 @@ useEffect(() => {
     const updateContact = {contactInfo}
     const updatePhones = {phones: editNumberList}
     console.log("updating")
+    
     axios.post("http://localhost:3005/api/phone/update", updatePhones).then((response) => {
-      console.log(response)
-    }).catch(error => {
-        console.log(error)
-    })
-
-    axios.post("http://localhost:3005/api/contacts/update", updateContact).then((response) => {
       console.log(response)
       if(response.data.error){
         setSnackbarInfo({isSuccess: false, message: response.data.error})
         setShowSnackbar(true)
         setIsLoading(false)
+        
         setTimeout(() => {      
         setShowSnackbar(false)
-        },3000)
-    }else{
-        setSnackbarInfo({isSuccess: true, message: "Contact edited."})
-        setShowSnackbar(true)
-        setTimeout(() => {      
-        setShowSnackbar(false)
-        navigator(0)
-    },3000)
-    
-    }
+        },3000)}else{
+          axios.post("http://localhost:3005/api/contacts/update", updateContact).then((response) => {
+            console.log(response)
+            if(response.data.error){
+              setSnackbarInfo({isSuccess: false, message: response.data.error})
+              setShowSnackbar(true)
+              setIsLoading(false)
+              setTimeout(() => {      
+              setShowSnackbar(false)
+              },3000)
+          }else{
+              setSnackbarInfo({isSuccess: true, message: "Contact edited."})
+              setShowSnackbar(true)
+              setTimeout(() => {      
+              setShowSnackbar(false)
+              navigator(0)
+          },3000)
+          
+          }
+          }).catch(error => {
+              console.log(error)
+              setSnackbarInfo({isSuccess: false, message: "could not edit contact."})
+                  setShowSnackbar(true)
+                  setTimeout(() => {      
+                  setShowSnackbar(false)
+                  setIsLoading(false)
+                  },3000)
+          })
+        }
     }).catch(error => {
         console.log(error)
-        setSnackbarInfo({isSuccess: false, message: "could not edit contact."})
-            setShowSnackbar(true)
-            setTimeout(() => {      
-            setShowSnackbar(false)
-            setIsLoading(false)
-            },3000)
     })
+
+
+      
+    
     
   }
   const imageInputRef = useRef()
