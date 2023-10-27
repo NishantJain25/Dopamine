@@ -1,0 +1,88 @@
+.App{
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr 3fr;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+a.active{
+  background-color: black;
+  color: white;
+}
+#sidebar{
+  padding: 2em;
+  border-right: 1px solid rgb(210, 210, 210);
+  display: flex;
+  flex-direction: column;
+}
+.title{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#add-contact-btn{
+  background-color: transparent;
+  transition: all 0.3s ease;
+  border: 1px solid black;
+  height: 40px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  border-radius: 5px;
+}
+#add-contact-btn:hover{
+  background-color: black;
+  color: white;
+}
+.form-container{
+  width: 100%;
+  display: flex;
+}
+#search-form{
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid rgb(239, 239, 239);
+}
+#search-form input{
+  width: 100%;
+  height: 30px;
+  border: none;
+  outline: 1px solid black;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+#search-form input:focus{
+  outline: 2px solid black;
+}
+#submit-btn{
+  
+  padding: 5px 10px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  transition: all 0.3s ease;
+}
+#submit-btn:hover{
+  background-color: transparent;
+  border: 1px solid black;
+  color: black;
+}
+.contacts-container{
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex-grow: 1;
+}
+.contacts-list{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

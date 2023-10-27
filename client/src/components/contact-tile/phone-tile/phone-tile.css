@@ -1,0 +1,42 @@
+#phone-tile-container{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.phone-tile{
+    position: relative;
+    background-color: rgb(230,230,230);
+    padding: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    
+    width: 100%;
+}
+.number{
+    margin: 0;
+    
+}
+.toggle-icon{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.collapsible-section{
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: rgb(100, 100, 100);
+}
+.collapsible-section p{
+    margin: 0;
+}

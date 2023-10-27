@@ -1,0 +1,39 @@
+.progress-indicator{
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    box-sizing: border-box;
+    animation: rotate 1s ease infinite forwards
+}
+
+@keyframes rotate {
+    100%{
+        transform: rotate(360deg);
+    }
+}
+.circle{
+    height: 10px;
+    width: 10px;
+    background-color: black;
+    border-radius: 100%;
+    position: absolute;
+}
+#circle-1{
+    top: 0;
+    left: 0;
+}
+#circle-2{
+    top: 0;
+    right: 0;
+}
+#circle-3{
+    bottom: 0;
+    left: 0;
+}
+#circle-4{
+    bottom:0;
+    right:0;
+}

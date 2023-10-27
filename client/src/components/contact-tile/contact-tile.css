@@ -1,0 +1,46 @@
+#contact-tile-link{
+    text-decoration: none;
+    background-color: rgb(230, 230, 230);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    color: black;
+}
+#contact-tile-link.active{
+    background-color: black;
+    color: white;
+}
+#contact-tile-link.active:hover{
+    background-color: rgb(50,50,50);
+}
+.contact-tile{
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-weight: 500;
+    border-radius: 15px;
+    text-decoration: none;
+    
+}
+#contact-tile-link:hover{
+    background-color: rgb(210, 210, 210);
+
+}
+#image-container-small{
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    border: 1px solid black;
+    position: relative;
+}
+.contact-image{
+    
+    height: 100%;
+    width:100%;
+    clip-path: circle(25px);
+    object-fit: cover;
+}
+.contact-name{
+    margin:0;
+    
+}
