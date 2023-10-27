@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const { PhoneModel, ContactModel } = require("../models");
 
 exports.createPhone = async (contactId, numberInfo) => {
@@ -24,18 +25,18 @@ exports.createPhone = async (contactId, numberInfo) => {
 };
 
 exports.checkExistingNumbers = async (numberList) => {
-  var exists = false;
+  var existingNumbers = [];
   try {
     const PromiseList = numberList.map(async (phoneNo) => {
       const result = await PhoneModel.findOne({ number: phoneNo.number });
       if (result) {
-        exists = true;
+        existingNumbers.push(result);
       }
     });
 
     await Promise.all(PromiseList);
 
-    return exists;
+    return existingNumbers;
   } catch (err) {
     console.log(JSON.stringify(err, undefined, 2));
   }
@@ -58,60 +59,69 @@ exports.getContactsByNumber = async (req, res, next) => {
 };
 
 exports.deletePhone = async (number) => {
-    try {
-        const deletedNumber = await PhoneModel.findOneAndDelete({number: number})
-        return { deletedNumber}
-    } catch (err) {
-        console.log(JSON.stringify(err, undefined, 2))
-    }
-}
+  try {
+    const deletedNumber = await PhoneModel.findOneAndDelete({ number: number });
+    return { deletedNumber };
+  } catch (err) {
+    console.log(JSON.stringify(err, undefined, 2));
+  }
+};
 
 exports.deletePhoneById = async (req, res, next) => {
-    const {phoneId} = req.body
-    try {
-        const deletedPhone = await PhoneModel.findByIdAndDelete(phoneId)
-        console.log(deletedPhone)
-        const response = await ContactModel.findOneAndUpdate({_id: deletedPhone.contact}, {$pull : {"phones" : deletedPhone._id}})
-        if(response){
-
-          return res.json({message: "Number deleted successfully"})
-        }else{
-          return res.json({error: "Number not found"})
-        }
-    } catch (err) {
-        console.log(JSON.stringify(err, undefined, 2));
-    return res.json({
-      error: "Number could not be deleted",
-      errorStack: err,
-    });
+  const { phoneId } = req.body;
+  try {
+    const deletedPhone = await PhoneModel.findByIdAndDelete(phoneId);
+    console.log(deletedPhone);
+    const response = await ContactModel.findOneAndUpdate(
+      { _id: deletedPhone.contact },
+      { $pull: { phones: deletedPhone._id } }
+    );
+    if (response) {
+      return res.json({ message: "Number deleted successfully" });
+    } else {
+      return res.json({ error: "Number not found" });
     }
-}
-
-exports.updatePhones = async (req, res, next) => {
-  const {phones} = req.body
-  var existingNumber = await this.checkExistingNumbers(phones)
-  if (existingNumber) {
-    return res.json({ error: "Phone number already exists" });
-  }
-  var updatedPhones = []
-  try{
-    const phonePromises = phones.map(async (numberInfo) => {
-      console.log(numberInfo)
-      const updatedPhone  = await PhoneModel.findOneAndUpdate(
-        {_id: numberInfo._id},
-        {...numberInfo},
-        {new: true}
-      );
-      updatedPhones.push(updatedPhone)
-    });
-    await Promise.all(phonePromises)
-    console.log(updatedPhones)
-    res.json({message: "Updated successfully"})
-  }catch(err){
+  } catch (err) {
     console.log(JSON.stringify(err, undefined, 2));
     return res.json({
       error: "Number could not be deleted",
       errorStack: err,
     });
   }
-}
+};
+
+exports.updatePhones = async (req, res, next) => {
+  const { phones } = req.body;
+  const id = phones[0]._id;
+  var existingNumbers = await this.checkExistingNumbers(phones);
+  if (existingNumbers) {
+    console.log(existingNumbers);
+    const diffContactNumber = existingNumbers.map((num, index) =>
+      phones.filter((currNum, index) => num.contact.toString() !== currNum.contact)
+    );
+    if(diffContactNumber[0].length !== 0){
+      return res.json({ error: "Phone number already exists" });
+    }
+  }
+  var updatedPhones = [];
+  try {
+    const phonePromises = phones.map(async (numberInfo) => {
+      console.log(numberInfo);
+      const updatedPhone = await PhoneModel.findOneAndUpdate(
+        { _id: numberInfo._id },
+        { ...numberInfo },
+        { new: true }
+      );
+      updatedPhones.push(updatedPhone);
+    });
+    await Promise.all(phonePromises);
+    console.log(updatedPhones);
+    res.json({ message: "Updated successfully" });
+  } catch (err) {
+    console.log(JSON.stringify(err, undefined, 2));
+    return res.json({
+      error: "Number could not be deleted",
+      errorStack: err,
+    });
+  }
+};

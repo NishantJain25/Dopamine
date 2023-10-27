@@ -9,8 +9,9 @@ exports.createContact = async (req, res, next) => {
     if (existingContact) {
       return res.json({ error: "Contact already exists" });
     }
-    const existingNumber = await phoneController.checkExistingNumbers(phones);
-    if (existingNumber) {
+    const existingNumbers = await phoneController.checkExistingNumbers(phones);
+    
+    if (existingNumbers.length > 0) {
       return res.json({ error: "Phone number already exists" });
     }
     const newContactInfo = new ContactModel({
