@@ -1,5 +1,5 @@
 const request = require('supertest')
-const baseURL = "http://localhost:3005/api"
+const baseURL = "https://dopamine-test-api.vercel.app/api"
 const crypto = require('crypto')
 const { default: mongoose } = require('mongoose')
 

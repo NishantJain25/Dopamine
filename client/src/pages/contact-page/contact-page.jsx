@@ -18,7 +18,7 @@ const ContactPage = () => {
     const navigator = useNavigate()
     useEffect(() => {
         setIsLoading(true)
-        axios.get(`http://localhost:3005/api/contacts/getContactById/${id}`).then((response) => {
+        axios.get(`https://dopamine-test-api.vercel.app/api/contacts/getContactById/${id}`).then((response) => {
             console.log(response)
             setContactInfo(response.data.contact)
             setIsLoading(false)
@@ -27,7 +27,7 @@ const ContactPage = () => {
 
     const handleDelete = () => {
         setIsLoading(true)
-        axios.post("http://localhost:3005/api/contacts/delete", {contactId: id}).then((response) => {
+        axios.post("https://dopamine-test-api.vercel.app/api/contacts/delete", {contactId: id}).then((response) => {
             setIsLoading(false)
             setSnackbarInfo({isSuccess:true,message:"Contact deleted."})
             setShowSnackbar(true)

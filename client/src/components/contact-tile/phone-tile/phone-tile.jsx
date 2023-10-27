@@ -15,7 +15,7 @@ const PhoneTile = ({ number, length, setShowSnackbar, setSnackbarInfo }) => {
   const handleNumberDelete = () => {
     if(length === 1){
         console.log("last number")
-        axios.post("http://localhost:3005/api/contacts/delete",{contactId: number.contact}).then((response) => {
+        axios.post("https://dopamine-test-api.vercel.app/api/contacts/delete",{contactId: number.contact}).then((response) => {
             console.log(response)
             if(response.data.error){
                 setSnackbarInfo({isSuccess: false, message: response.data.error})
@@ -44,7 +44,7 @@ const PhoneTile = ({ number, length, setShowSnackbar, setSnackbarInfo }) => {
         
     }else{
 
-        axios.post("http://localhost:3005/api/phone/delete", {phoneId: number._id}).then((response) => {
+        axios.post("https://dopamine-test-api.vercel.app/api/phone/delete", {phoneId: number._id}).then((response) => {
             console.log(response)
             if(response.data.error){
                 setSnackbarInfo({isSuccess: false, message: response.data.error})

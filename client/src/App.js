@@ -24,7 +24,7 @@ function App() {
     setIsContactsLoading(true);
     
     axios
-      .get(`http://localhost:3005/api/contacts/search?q=${searchQuery}`)
+      .get(`https://dopamine-test-api.vercel.app/api/contacts/search?q=${searchQuery}`)
       .then((response) => {
         console.log(response.data.contacts);
         setSearchData(prevData => [...prevData,response.data.contacts]);
@@ -33,7 +33,7 @@ function App() {
 
       if(!isNaN(searchQuery)){
         axios
-      .get(`http://localhost:3005/api/phone/search?q=${searchQuery}`)
+      .get(`https://dopamine-test-api.vercel.app/api/phone/search?q=${searchQuery}`)
       .then((response) => {
         console.log(response.data.contacts);
         var contactsArray = response.data.contacts.map((contact) => contact.contact )
@@ -43,7 +43,7 @@ function App() {
       });
       }else{
         axios
-      .get(`http://localhost:3005/api/contacts/search?q=${searchQuery}`)
+      .get(`https://dopamine-test-api.vercel.app/api/contacts/search?q=${searchQuery}`)
       .then((response) => {
         console.log(response.data.contacts);
         setSearchData(prevData => [...prevData,response.data.contacts]);
@@ -55,7 +55,7 @@ function App() {
   };
   useEffect(() => {
     axios
-      .get("http://localhost:3005/api/contacts/getAllContacts")
+      .get("https://dopamine-test-api.vercel.app/api/contacts/getAllContacts")
       .then((response) => {
         setContacts(response.data.contacts);
         setIsContactsLoading(false);

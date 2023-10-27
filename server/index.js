@@ -17,8 +17,6 @@ app.use(cors())
 app.use('/api', contactRouter)
 app.use('/api', phoneRouter)
 
-
-
 app.listen(3005, () => {
     console.log("Server listening at port 3005")
 })

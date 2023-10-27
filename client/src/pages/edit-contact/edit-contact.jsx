@@ -22,7 +22,7 @@ const [editNumberList, setEditNumberList] = useState([])
   const {id} = useParams()
 
   useEffect(() => {
-    axios.get(`http://localhost:3005/api/contacts/getContactById/${id}`).then((response) => {
+    axios.get(`https://dopamine-test-api.vercel.app/api/contacts/getContactById/${id}`).then((response) => {
         console.log(response.data)
         const {name, image, phones} = response.data.contact
         setName(name)
@@ -77,7 +77,7 @@ useEffect(() => {
     const updatePhones = {phones: editNumberList}
     console.log("updating")
     
-    axios.post("http://localhost:3005/api/phone/update", updatePhones).then((response) => {
+    axios.post("https://dopamine-test-api.vercel.app/api/phone/update", updatePhones).then((response) => {
       console.log(response)
       if(response.data.error){
         setSnackbarInfo({isSuccess: false, message: response.data.error})
@@ -87,7 +87,7 @@ useEffect(() => {
         setTimeout(() => {      
         setShowSnackbar(false)
         },3000)}else{
-          axios.post("http://localhost:3005/api/contacts/update", updateContact).then((response) => {
+          axios.post("https://dopamine-test-api.vercel.app/api/contacts/update", updateContact).then((response) => {
             console.log(response)
             if(response.data.error){
               setSnackbarInfo({isSuccess: false, message: response.data.error})

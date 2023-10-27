@@ -82,7 +82,7 @@ const AddContact = () => {
     setIsLoading(true)
     const newContact = {name,image,phones: numberList}
     console.log(newContact)
-    axios.post("http://localhost:3005/api/contacts/create", newContact).then((response) => {
+    axios.post("https://dopamine-test-api.vercel.app/api/contacts/create", newContact).then((response) => {
       console.log(response)
       if(response.data.error){
         setIsLoading(false)
