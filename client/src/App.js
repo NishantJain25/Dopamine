@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import axios from "axios";
 import ContactTile from "./components/contact-tile/contact-tile";
@@ -11,18 +11,44 @@ function App() {
   const [searchData, setSearchData] = useState([]);
   const [isContactsLoading, setIsContactsLoading] = useState(true);
   const [showSnackbar, setShowSnackbar] = useState(false);
+  const [url, setUrl] = useState("")
   const [snackbarInfo, setSnackbarInfo] = useState({
     isSuccess: true,
     message: "",
   });
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
+  const csvRef = useRef(null)
+  const exportCsv = () => {
+    const headers = Object.keys(contacts[0]).slice(0,4).toString()
+   
+
+    const main = contacts.map((contact) => {
+      return Object.values(contact).slice(0,4).toString()
+    })
+
+    
+
+    const csv = [headers, ...main].join('\n')
+    startCSVDownload(csv)
+    
+  }
+
+  const startCSVDownload = (input) => {
+    const blob = new Blob([input],{type: 'application/csv'})
+    const url = URL.createObjectURL(blob)
+    setUrl(url)
+    csvRef?.current.click()
+
+    URL.revokeObjectURL(url)
+  }
 
   const onSearch = (e) => {
     e.preventDefault();
     setIsSearching(true);
     setIsContactsLoading(true);
     
+  
     axios
       .get(`https://dopamine-test-api.vercel.app/api/contacts/search?q=${searchQuery}`)
       .then((response) => {
@@ -66,6 +92,8 @@ function App() {
       <div id="sidebar">
         <div className="title">
           <h1>Contacts</h1>
+          <button onClick={exportCsv}>Export to CSV</button>
+          <a href={url} download={'test-csv.csv'} ref={csvRef}/>
           <Link to="/contacts/add" id="add-contact-btn">
             Add New Contact
           </Link>
