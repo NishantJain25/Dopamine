@@ -4,6 +4,7 @@ const router = express.Router()
 
 
 
+router.get('/api/vercel', (req, res) => {res.send("Hey")})
 
 router.post('/contacts/create', contactController.createContact)
 router.get('/contacts/getAllContacts', contactController.getAllContacts)
